@@ -88,12 +88,18 @@ if getenv('GITHUB_WORKFLOW'):
 else:
     DATABASES = {
         'default': {
+            # 'ENGINE': 'django.db.backends.postgresql',
+            # 'NAME': env.get('PSQL_DBNAME'),
+            # 'USER': env.get('PSQL_USERNAME'),
+            # 'PASSWORD': env.get('PSQL_PASS'),
+            # 'HOST': env.get('PSQL_HOST'),
+            # 'PORT': env.get('PSQL_PORT'), # 'PORT': 5432
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': env.get('PSQL_DBNAME'),
-            'USER': env.get('PSQL_USERNAME'),
-            'PASSWORD': env.get('PSQL_PASS'),
-            'HOST': env.get('PSQL_HOST'),
-            'PORT': env.get('PSQL_PORT'), # 'PORT': 5432
+            'NAME': 'mauricio_reyes_d',
+            'USER': 'mauricio_reyes',
+            'PASSWORD': 'mauricio_reyes123*',
+            'ALLOWED_HOSTS': ['104.237.129.63'], # 'HOST': '104.237.129.63' OR 'HOST':'localhost'
+            'PORT': '5432', # 'PORT': 5432
         }
     }
 
