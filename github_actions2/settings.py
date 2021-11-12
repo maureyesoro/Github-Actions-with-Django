@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+from os import getenv, environ as env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -73,12 +74,29 @@ WSGI_APPLICATION = 'github_actions2.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if getenv('GITHUB_WORKFLOW'):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'github-actions',
+            'USER': 'postgres',
+            'PASSWORD': 'postgres',
+            'HOST': 'localhost',
+            'PORT': '5432'
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': env.get('PSQL_DBNAME'),
+            'USER': env.get('PSQL_USERNAME'),
+            'PASSWORD': env.get('PSQL_PASS'),
+            'HOST': env.get('PSQL_HOST'),
+            'PORT': env.get('PSQL_PORT'), # 'PORT': 5432
+        }
+    }
+
 
 
 # Password validation
